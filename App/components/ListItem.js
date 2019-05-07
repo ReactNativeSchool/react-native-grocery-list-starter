@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, TouchableHighlight, TouchableNativeFeedback } from 'react-native';
+import { Platform, View, Text, StyleSheet, Image, TouchableOpacity, TouchableHighlight, TouchableNativeFeedback } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,14 +26,28 @@ const styles = StyleSheet.create({
 
 export const Separator = () => <View style={styles.separator} />
 
-const ListItem = ({ name, onFavoritePress }) => {
+const ListItem = ({ name, onFavoritePress, isFavorite }) => {
+  let starIcon;
+
+  if (isFavorite){
+    starIcon = Platform.select({
+      ios: require('../assets/icons/ios-star.png'),
+      android: require('../assets/icons/md-star.png')
+    });
+  } else {
+    starIcon = Platform.select({
+      ios: require('../assets/icons/ios-star-outline.png'),
+      android: require('../assets/icons/md-star-outline.png')
+    });
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{name}</Text>
       {onFavoritePress && (
         <TouchableOpacity onPress={onFavoritePress}>
           <Image
-            source={require('../assets/icons/ios-star-outline.png')}
+            source={starIcon}
             style={styles.icon}
             resizeMode="contain"
           />
