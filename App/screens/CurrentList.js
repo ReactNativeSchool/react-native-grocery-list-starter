@@ -14,6 +14,7 @@ export default () => {
           <React.Fragment key={item.id}>
             <ListItem
               name={item.name}
+              onFavoritePress={() => alert('todo: handle favorite!')}
             />
             <Separator />
           </React.Fragment>
