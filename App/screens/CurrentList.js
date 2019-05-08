@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, SafeAreaView, ScrollView, FlatList, KeyboardAvoidingView } from 'react-native';
+import uuid from "uuid/v4";
 
 import nachos from '../data/nachos';
 
@@ -7,6 +8,8 @@ import ListItem, { Separator } from '../components/ListItem';
 import AddItem from '../components/AddItem';
 
 export default () => {
+  const [list, setList] = useState(nachos);
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <KeyboardAvoidingView
@@ -14,7 +17,7 @@ export default () => {
         behavior="padding"
       >
         <FlatList
-          data={nachos}
+          data={list}
           renderItem={({ item, index }) => (
             <ListItem
               name={item.name}
@@ -25,7 +28,11 @@ export default () => {
           keyExtractor={(item) => item.id}
           ItemSeparatorComponent={() => <Separator />}
           ListHeaderComponent={() => (
-            <AddItem />
+            <AddItem
+              onSubmitEditing={({ nativeEvent: { text } }) => {
+                setList([{ id: uuid(), name: text}, ...list])
+              }}
+            />
           )}
         />
       </KeyboardAvoidingView>
