@@ -1,3 +1,4 @@
-import CurrentList from './screens/CurrentList';
+import React from 'react';
+import Navigation from './navigation';
 
-export default CurrentList;
+export default () => <Navigation />;
