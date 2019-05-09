@@ -10,6 +10,15 @@ import AddItem from '../components/AddItem';
 export default () => {
   const [list, setList] = useState(nachos);
 
+  const addItem = (text) => {
+    setList([{ id: uuid(), name: text}, ...list]);
+  };
+
+  const removeItem = (id) => {
+    const newList = list.filter(item => item.id !== id);
+    setList(newList);
+  };
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <KeyboardAvoidingView
@@ -23,17 +32,15 @@ export default () => {
               name={item.name}
               onFavoritePress={() => alert('todo: handle favorite!')}
               isFavorite={index < 2}
-              onAddedSwipe={() => alert('todo: on added swipe')}
-              onDeleteSwipe={() => alert('todo: on delete swipe')}
+              onAddedSwipe={() => removeItem(item.id)}
+              onDeleteSwipe={() => removeItem(item.id)}
             />
           )}
           keyExtractor={(item) => item.id}
           ItemSeparatorComponent={() => <Separator />}
           ListHeaderComponent={() => (
             <AddItem
-              onSubmitEditing={({ nativeEvent: { text } }) => {
-                setList([{ id: uuid(), name: text}, ...list])
-              }}
+              onSubmitEditing={({ nativeEvent: { text } }) => addItem(text)}
             />
           )}
         />
