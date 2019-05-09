@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, SafeAreaView, ScrollView, FlatList, KeyboardAvoidingView, ActivityIndicator } from 'react-native';
+import { SectionList, View, Text, SafeAreaView, ScrollView, FlatList, KeyboardAvoidingView, ActivityIndicator } from 'react-native';
 
-import ListItem, { Separator } from '../components/ListItem';
+import ListItem, { Separator, SectionHeader } from '../components/ListItem';
 import AddItem from '../components/AddItem';
 import { useCurrentList } from '../util/ListManager';
 
@@ -30,8 +30,15 @@ export default ({ navigation }) => {
         style={{ flex: 1 }}
         behavior="padding"
       >
-        <FlatList
-          data={list}
+        <SectionList
+          // data={list}
+          sections={[
+            { title: 'List', data: list },
+            { title: 'Cart', data: cart },
+          ]}
+          renderSectionHeader={({ section }) => (
+            <SectionHeader title={section.title} />
+          )}
           renderItem={({ item, index }) => (
             <ListItem
               name={item.name}

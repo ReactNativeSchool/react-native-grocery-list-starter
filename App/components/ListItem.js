@@ -40,6 +40,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-end'
   },
+
+  sectionContainer: {
+    backgroundColor: '#d3d3d3',
+    paddingVertical: 10,
+  },
+  sectionText: {
+    fontWeight: '600',
+  },
 });
 
 export const Separator = () => <View style={styles.separator} />
@@ -71,6 +79,12 @@ const RightActions = (progress, dragX) => {
     </View>
   );
 }
+
+export const SectionHeader = ({ title }) => (
+  <View style={[styles.container, styles.sectionContainer]}>
+    <Text style={styles.sectionText}>{title}</Text>
+  </View>
+);
 
 const ListItem = ({ onRowPress, name, onFavoritePress, isFavorite, onAddedSwipe, onDeleteSwipe }) => {
   let starIcon;
